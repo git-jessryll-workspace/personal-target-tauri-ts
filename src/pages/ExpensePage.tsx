@@ -69,9 +69,9 @@ const ExpensePage: FC<ExpensePageProps> = () => {
             const date2: any = new Date(item2.date);
             return date2 - date1;
           })
-          .map((expense: any) => (
+          .map((expense: any, index: number) => (
             <li
-              key={expense.id}
+              key={`${expense.id}-${index}`}
               className="flex items-center justify-between gap-x-6 py-5"
             >
               <div className="min-w-0">

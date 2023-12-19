@@ -10,13 +10,15 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { Modal } from "@/components";
-import FormIncome from "@/components/income/FormIncome";
+import FormTransaction from "@/components/income/FormTransaction";
 
 interface IncomePageProps {}
 
 const IncomePage: FC<IncomePageProps> = () => {
   const [incomeList, setIncomeList] = useState<any[]>([]);
   const [openModalIncome, setOpenModalIncome] = useState<boolean>(false);
+  const [selectedIncome, setSelectedIncome] = useState<any>();
+
   useEffect(() => {
     setIncomeList(
       income_list.map((item: any) => ({
@@ -40,9 +42,13 @@ const IncomePage: FC<IncomePageProps> = () => {
         openModal={openModalIncome}
         toggleModal={() => setOpenModalIncome(!openModalIncome)}
         children={
-          <FormIncome/>
+          <FormTransaction
+            income={selectedIncome}
+            closeModal={() => setOpenModalIncome(false)}
+          />
         }
       />
+      
       <div className="border-b bg-gray-800 text-white px-4 py-8 sm:px-6 rounded-lg p-0.5 shadow-lg">
         <div className="flex flex-wrap justify-between sm:flex-nowrap">
           <div className="ml-1 space-y-2">
@@ -77,40 +83,40 @@ const IncomePage: FC<IncomePageProps> = () => {
             const date2: any = new Date(item2.date);
             return date2 - date1;
           })
-          .map((expense: any) => (
+          .map((income: any, index: number) => (
             <li
-              key={expense.id}
+              key={`${income.id}-${index}`}
               className="flex items-center justify-between gap-x-6 py-5"
             >
               <div className="min-w-0">
                 <div className="flex items-start gap-x-3">
                   <p className="text-sm font-semibold leading-6 text-gray-900">
-                    #{expense.id} - {expense.name}
+                    #{income.id} - {income.name}
                   </p>
                   <p
                     className={classNames(
-                      statuses[expense.type],
+                      statuses[income.type],
                       "rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset"
                     )}
                   >
-                    {expense.type}
+                    {income.type}
                   </p>
                 </div>
                 <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-                  <p className="whitespace-nowrap">{expense.note}</p>
+                  <p className="whitespace-nowrap">{income.note}</p>
                 </div>
               </div>
               <div className="flex flex-none items-center gap-x-4">
                 <div className="text-right">
                   <h3 className="text-lg text-green-800 font-semibold">
-                    {amountFormat(+expense.amount)}
-                    <span className="sr-only">{expense.amount}</span>
+                    {amountFormat(+income.amount)}
+                    <span className="sr-only">{income.amount}</span>
                   </h3>
                   <time
                     className="text-gray-500 text-sm"
-                    dateTime={expense.date}
+                    dateTime={income.date}
                   >
-                    {dateFormat(expense.date)}
+                    {dateFormat(income.date)}
                   </time>
                 </div>
                 <Menu as="div" className="relative flex-none">
@@ -135,13 +141,17 @@ const IncomePage: FC<IncomePageProps> = () => {
                         {({ active }) => (
                           <a
                             href="#"
+                            onClick={() => {
+                              setSelectedIncome(income);
+                              setOpenModalIncome(true);
+                            }}
                             className={classNames(
                               active ? "bg-gray-50" : "",
                               "block px-3 py-1 text-sm leading-6 text-gray-900"
                             )}
                           >
                             Edit
-                            <span className="sr-only">, {expense.name}</span>
+                            <span className="sr-only">, {income.name}</span>
                           </a>
                         )}
                       </Menu.Item>
@@ -151,11 +161,11 @@ const IncomePage: FC<IncomePageProps> = () => {
                             href="#"
                             className={classNames(
                               active ? "bg-gray-50" : "",
-                              "block px-3 py-1 text-sm leading-6 text-gray-900"
+                              "block px-3 py-1 text-sm leading-6 text-gray-900 opacity-50 cursor-not-allowed"
                             )}
                           >
                             Move
-                            <span className="sr-only">, {expense.name}</span>
+                            <span className="sr-only">, {income.name}</span>
                           </a>
                         )}
                       </Menu.Item>
@@ -169,7 +179,7 @@ const IncomePage: FC<IncomePageProps> = () => {
                             )}
                           >
                             Delete
-                            <span className="sr-only">, {expense.name}</span>
+                            <span className="sr-only">, {income.name}</span>
                           </a>
                         )}
                       </Menu.Item>

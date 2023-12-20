@@ -1,4 +1,4 @@
-import { classNames } from "@/utils";
+import { classNames, dateFormat } from "@/utils";
 import {
   CalendarIcon,
   ChartPieIcon,
@@ -38,7 +38,6 @@ const MenuNav: FC<MenuNavProps> = () => {
       icon: DocumentDuplicateIcon,
       current: false,
     },
-    { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
   ]);
 
   useEffect(() => {
@@ -79,7 +78,7 @@ const MenuNav: FC<MenuNavProps> = () => {
                     item.current
                       ? "bg-gray-800 text-white"
                       : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6"
                   )}
                 >
                   <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
@@ -90,13 +89,9 @@ const MenuNav: FC<MenuNavProps> = () => {
           </ul>
         </li>
         <li className="mt-auto">
-          <a
-            href="#"
-            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-          >
-            <Cog6ToothIcon className="h-6 w-6 shrink-0" aria-hidden="true" />
-            Settings
-          </a>
+          <div className="text-2xl antialiased text-gray-300">
+            <h3>{dateFormat(new Date().toDateString())}</h3>
+          </div>
         </li>
       </ul>
     </nav>

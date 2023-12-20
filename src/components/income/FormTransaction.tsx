@@ -1,11 +1,11 @@
 import { ChangeEvent, FC, FormEvent, memo, useState } from "react";
 
 interface FormProps {
-  income?: { id: any; name: string; note: string; amount: number; type: "INCOME" | "EXPENSE"; };
+  transaction?: { id: any; name: string; note: string; amount: number; type: "INCOME" | "EXPENSE"; };
   closeModal: () => void;
 }
 
-interface IncomeDataProps {
+interface TransactionDataProps {
   id?: any;
   name: string;
   note: string;
@@ -13,26 +13,36 @@ interface IncomeDataProps {
   type: "INCOME" | "EXPENSE";
 }
 
-const FormComponent: FC<FormProps> = ({ income, closeModal }) => {
-  const [data, setData] = useState<IncomeDataProps | undefined>({
-    name: income?.name || "",
-    note: income?.note || "",
-    amount: income?.amount || "",
-    type: income?.type || "INCOME"
+const FormComponent: FC<FormProps> = ({ transaction, closeModal }) => {
+  const [data, setData] = useState<TransactionDataProps>({
+    name: transaction?.name || "",
+    note: transaction?.note || "",
+    amount: transaction?.amount || "",
+    type: transaction?.type || "INCOME"
   });
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (income?.id) {
+    if (transaction?.id) {
     } else {
     }
+    reset();
     closeModal();
   };
+
+  const reset = () => {
+    setData({
+      name: "",
+      note: "",
+      amount: "",
+      type: "INCOME"
+    })
+  }
 
   return (
     <div>
       <div className="pb-4">
-        <h3 className="font-bold text-2xl text-gray-700">Income Form</h3>
+        <h3 className="font-bold text-2xl text-gray-700 capitalize">{data.type.toLocaleLowerCase()} Form</h3>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">

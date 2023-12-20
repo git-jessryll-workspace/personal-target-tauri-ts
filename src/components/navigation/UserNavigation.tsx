@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ProfileImageNav } from ".";
 
 const userNavigation = [
-  { name: "Your profile", href: "#" },
+  { name: "Your profile", href: "/profile" },
   { name: "Sign out", href: "#" },
 ];
 interface UserNavigationProps {}

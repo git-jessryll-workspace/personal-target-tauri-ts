@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   NotificationNav,
   SeparateNav,
@@ -15,9 +15,11 @@ import {
   IncomePage,
   CalendarPage,
   DocumentPage,
+  ProfilePage,
 } from "@/pages";
 
-interface AuthenticatedLayoutProps {}
+interface AuthenticatedLayoutProps {
+}
 
 const AuthenticatedLayout: FC<AuthenticatedLayoutProps> = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,6 +44,10 @@ const AuthenticatedLayout: FC<AuthenticatedLayoutProps> = () => {
     {
       path: "documents",
       element: <DocumentPage />,
+    },
+    {
+      path: "profile",
+      element: <ProfilePage />,
     },
   ];
 

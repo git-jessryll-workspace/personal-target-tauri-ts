@@ -1,8 +1,6 @@
 import { classNames, dateFormat } from "@/utils";
 import {
   CalendarIcon,
-  ChartPieIcon,
-  Cog6ToothIcon,
   DocumentDuplicateIcon,
   HomeIcon,
   ShoppingBagIcon,

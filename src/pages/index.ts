@@ -5,6 +5,7 @@ import ExpensePage from "./ExpensePage";
 import IncomePage from "./IncomePage";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
 
 export {
     CalendarPage,
@@ -13,5 +14,6 @@ export {
     ExpensePage,
     IncomePage,
     ProfilePage,
-    LoginPage
+    LoginPage,
+    ForgotPasswordPage
 }
